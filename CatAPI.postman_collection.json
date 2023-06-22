@@ -1,0 +1,1821 @@
+{
+	"info": {
+		"_postman_id": "cb83ac62-457e-4a2e-8dbc-595fe2f18765",
+		"name": "Cat API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27558184",
+		"_collection_link": "https://interstellar-equinox-285024.postman.co/workspace/New-Team-Workspace~5dd8189a-19a0-49b0-9a5c-cdd171234dd9/collection/27558184-cb83ac62-457e-4a2e-8dbc-595fe2f18765?action=share&creator=27558184&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "Negative test",
+					"item": [
+						{
+							"name": "missing headers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is a Failure\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.within(400, 599); // Expecting a status code in the range of 400 to 599\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Body Indicates Failure\", function () {\r",
+											"    var responseBody = pm.response.text();\r",
+											"    pm.expect(responseBody).to.include('<title>Error 404 (Not Found)!!1</title>'); // Example: Check for a specific HTML tag\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"connection": true,
+									"accept-encoding": true,
+									"accept": true,
+									"host": true,
+									"user-agent": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "ff2ad2c0e2b046909ccd2797d53ae49f",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Ocp-Apim-Subscription-Key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"disabled": true
+									},
+									{
+										"key": "x-api-key",
+										"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "https://api.thecatapi.com/v1/images/search",
+									"protocol": "https",
+									"host": [
+										"api",
+										"thecatapi",
+										"com"
+									],
+									"path": [
+										"v1",
+										"images",
+										"search"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "json",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "25",
+											"disabled": true
+										},
+										{
+											"key": "has_breeds",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "order",
+											"value": "asc",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "different end points",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Invalid URL Test\", function () {\r",
+											"  // Check the response status code for 404 (Not Found)\r",
+											"  pm.response.to.have.status(404);\r",
+											"\r",
+											"  // Check the response body for the presence of the expected error message\r",
+											"  pm.expect(pm.response.json().message).to.eql(\"404 - please consult the documentation for correct url to call. https://docs.thecatapi.com/\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "liveuBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-api-key",
+										"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+									}
+								],
+								"url": {
+									"raw": "https://api.thecatapi.com/v1/images/search/helloworld",
+									"protocol": "https",
+									"host": [
+										"api",
+										"thecatapi",
+										"com"
+									],
+									"path": [
+										"v1",
+										"images",
+										"search",
+										"helloworld"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unauthorised user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Unauthorized Access\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(401); // Expecting Unauthorized status code\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Missing or Invalid API Key\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(401); // Expecting Forbidden status code\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "live_4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api_key",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "img/cat.png"
+										},
+										{
+											"key": "sub_id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.thecatapi.com/v1/images/upload",
+									"protocol": "https",
+									"host": [
+										"api",
+										"thecatapi",
+										"com"
+									],
+									"path": [
+										"v1",
+										"images",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "different file upload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Incorrect Animal Classification Test\", function () {\r",
+											"  var responseBody = pm.response.text();\r",
+											"  var expectedErrorMessage = \"Classifcation failed: correct animal not found.\";\r",
+											"\r",
+											"  console.log(\"Response Body:\", responseBody);\r",
+											"\r",
+											"  //pm.expect(responseBody.includes(expectedErrorMessage)).to.be.true;\r",
+											"  pm.expect(responseBody.includes(\"File Transfer Blocked\"));\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api_key",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Neha/Desktop/croma.png"
+										},
+										{
+											"key": "sub_id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.thecatapi.com/v1/images/upload",
+									"protocol": "https",
+									"host": [
+										"api",
+										"thecatapi",
+										"com"
+									],
+									"path": [
+										"v1",
+										"images",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive test",
+					"item": []
+				},
+				{
+					"name": "https://api.thecatapi.com/v1/images/search?format=json&limit=10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response body as a JSON object\r",
+									"var responseBody = pm.response.json();\r",
+									"// Verify the response status code\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"// Parse the response body to extract the list of breeds\r",
+									"var List = pm.response.json();\r",
+									"\r",
+									"// Extract the breed IDs from the list\r",
+									"const IDs = List.slice(1, 10).map(breed => breed.id);\r",
+									"\r",
+									"// Set the breed IDs as a variable\r",
+									"pm.globals.set(\"IDs\", JSON.stringify(IDs));\r",
+									"\r",
+									"// Verify each image object in the response\r",
+									"pm.test(\"Verify image details\", function () {\r",
+									"    // Loop through each image object in the response\r",
+									"    responseBody.forEach(function (image) {\r",
+									"        pm.test(\"Image object - ID is a non-empty string\", function () {\r",
+									"            pm.expect(image.id).to.be.a('string').and.not.empty;\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Image object - URL is a valid URL\", function () {\r",
+									"            pm.expect(image.url).to.match(/^https?:\\/\\/[^\\s/$.?#].[^\\s]*$/);\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Image object - Width and height are positive integers\", function () {\r",
+									"            pm.expect(image.width).to.be.a('number').and.be.greaterThan(0);\r",
+									"            pm.expect(image.height).to.be.a('number').and.be.greaterThan(0);\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Verify total amount of results\", function () {\r",
+									"    var totalResults = responseBody.length;\r",
+									"\r",
+									"    pm.expect(totalResults).to.be.a('number').and.satisfy(Number.isInteger);\r",
+									"});\r",
+									"pm.test(\"Verify Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"        \r",
+									"pm.test(\"Verify image formats\", function () {\r",
+									"    responseBody.forEach(function (image) {\r",
+									"        var imageUrl = image.url;\r",
+									"        var imageExtension = imageUrl.substring(imageUrl.lastIndexOf(\".\") + 1);\r",
+									"\r",
+									"        pm.expect(imageExtension).to.be.oneOf([\"jpg\", \"png\", \"gif\"]);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Verify the \"Access-Control-Expose-Headers\" header includes the required headers\r",
+									"pm.test(\"Verify Access-Control-Expose-Headers\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Expose-Headers\");\r",
+									"    \r",
+									"    var exposeHeaders = pm.response.headers.get(\"Access-Control-Expose-Headers\");\r",
+									"    var requiredHeaders = [\"Pagination-Count\", \"Pagination-Page\", \"Pagination-Limit\"];\r",
+									"    \r",
+									"    requiredHeaders.forEach(function (header) {\r",
+									"        pm.expect(exposeHeaders).to.include(header);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"        // Optional: Verify breed details if \"breeds\" array is not empty\r",
+									"        if (image.breeds.length > 0) {\r",
+									"            pm.test(\"Image object - Breed details\", function () {\r",
+									"                // Adjust these assertions based on your specific requirements\r",
+									"                pm.expect(image.breeds[0].name).to.be.a('string').and.not.empty;\r",
+									"                pm.expect(image.breeds[0].temperament).to.be.a('string').and.not.empty;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/search?format=json&limit=25&order=asc",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "limit",
+									"value": "25"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch individual image",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"const storedIds = JSON.parse(pm.globals.get(\"IDs\"));\r",
+									"\r",
+									"// Select a random book ID from the list\r",
+									"const randomIndex = Math.floor(Math.random() * storedIds.length);\r",
+									"const randomId = storedIds[randomIndex];\r",
+									"\r",
+									"// Set the random book ID as a variable for this request\r",
+									"pm.globals.set(\"ID\", randomId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response should be okay to process\", function () { \r",
+									"    pm.response.to.not.be.error; \r",
+									"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify image formats\", function () {\r",
+									"    var responseBody = pm.response.json();\r",
+									"\r",
+									"    if (Array.isArray(responseBody)) {\r",
+									"        responseBody.forEach(function (image) {\r",
+									"            var imageUrl = image.url;\r",
+									"            var imageExtension = imageUrl.substring(imageUrl.lastIndexOf(\".\") + 1);\r",
+									"\r",
+									"            pm.expect(imageExtension).to.be.oneOf([\"jpg\", \"png\", \"gif\"]);\r",
+									"        });\r",
+									"    } else {\r",
+									"        pm.expect(responseBody.url).to.match(/\\.(jpg|jpeg|png|gif)$/i);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/{{ID}}?order=desc&sub_id=",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"{{ID}}"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "desc"
+								},
+								{
+									"key": "sub_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image your uploads",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response should be okay to process\", function () { \r",
+									"    pm.response.to.not.be.error; \r",
+									"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/?limit=10&page=0&order=DESC&format=json&original_filename=cat.png",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "sub_id",
+									"value": "user1",
+									"disabled": true
+								},
+								{
+									"key": "breed_ids",
+									"value": "1,4,28",
+									"disabled": true
+								},
+								{
+									"key": "category_ids",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "original_filename",
+									"value": "cat.png"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "images/upload2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.globals.set(\"imageId\",jsonData.id);\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.globals.set(\"imagurl\",jsonData.url);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 5 seconds\", function () {\r",
+									"    var responseTimeSec = pm.response.responseTime / 1000;\r",
+									"    pm.expect(responseTimeSec).to.be.below(5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Original filename has the correct format\", function () {\r",
+									"    var responseJson = pm.response.json();\r",
+									"    var originalFilename = responseJson.original_filename;\r",
+									"\r",
+									"    pm.expect(originalFilename).to.match(/^[\\w\\d]+\\.(jpg|jpeg|png|gif)$/i);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "img/cat.png"
+								},
+								{
+									"key": "sub_id",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/upload",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response should be okay to process\", function () { \r",
+									"    pm.response.to.not.be.error; \r",
+									"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{imagurl}}",
+							"host": [
+								"{{imagurl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is text/html\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/html\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "example-api-key-for-your-account"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/{{imageId}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get image after deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "DEMO-API-KEY"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post image analysis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.globals.set(\"analys.id\",jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"vendor\": \"Squart\",\r\n\t\"labels\": \"[]\"\r\n}"
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/{{imageId}}/analysis",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"{{imageId}}",
+								"analysis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image analysis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response should be okay to process\", function () { \r",
+									"    pm.response.to.not.be.error; \r",
+									"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "live_uBI4Z35FUgLFUcjeiPFi3oLmVHWMTv712uEGUKU0Tge6lTFqxYixAJb04USg4eNp",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/images/{{imageId}}/analysis",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"{{imageId}}",
+								"analysis"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favourites",
+			"item": [
+				{
+					"name": "Get favourites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify response structure and content\", function () {\r",
+									"    // Verify that the response is an array\r",
+									"    pm.expect(pm.response.json()).to.be.an('array');\r",
+									"\r",
+									"    // Verify the properties of each object in the array\r",
+									"    pm.response.json().forEach(function (item) {\r",
+									"        // Skip empty objects\r",
+									"        if (Object.keys(item).length === 0) {\r",
+									"            return;\r",
+									"        }\r",
+									"\r",
+									"        pm.expect(item).to.have.property('id');\r",
+									"        pm.expect(item).to.have.property('user_id');\r",
+									"        pm.expect(item).to.have.property('image_id');\r",
+									"        pm.expect(item).to.have.property('sub_id');\r",
+									"        pm.expect(item).to.have.property('created_at');\r",
+									"        pm.expect(item).to.have.property('image');\r",
+									"\r",
+									"        // Verify the properties of the 'image' object\r",
+									"        pm.expect(item.image).to.have.property('id');\r",
+									"        pm.expect(item.image).to.have.property('url');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Store random id in a variable\", function () {\r",
+									"    // Get the response array\r",
+									"    var responseArray = pm.response.json();\r",
+									"\r",
+									"    // Generate a random index within the array length\r",
+									"    var randomIndex = Math.floor(Math.random() * responseArray.length);\r",
+									"\r",
+									"    // Get the item at the random index\r",
+									"    var randomItem = responseArray[randomIndex];\r",
+									"\r",
+									"    // Store the id value in a variable named 'randomId'\r",
+									"    pm.globals.set(\"favId\", randomItem.id);\r",
+									"\r",
+									"    // Verify that the variable is set\r",
+									"    pm.expect(pm.globals.get(\"favId\")).to.equal(randomItem.id);\r",
+									"\r",
+									"pm.test(\"Response time is less than 5000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+									"});\r",
+									"  \r",
+									"var responseBody = pm.response.json();\r",
+									" \r",
+									"pm.test(\"Response is an array\", function () {\r",
+									"    pm.expect(responseBody).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"// Test: Verify the response is not empty\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(responseBody).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"// Test: Verify each object in the array has the required properties\r",
+									"pm.test(\"Each object has required properties\", function () {\r",
+									"    responseBody.forEach(function (item) {\r",
+									"        pm.expect(item).to.have.property(\"id\");\r",
+									"        pm.expect(item).to.have.property(\"user_id\");\r",
+									"        pm.expect(item).to.have.property(\"image_id\");\r",
+									"        pm.expect(item).to.have.property(\"sub_id\");\r",
+									"        pm.expect(item).to.have.property(\"created_at\");\r",
+									"        pm.expect(item).to.have.property(\"image\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test: Verify the URL format of each image\r",
+									"pm.test(\"Verify image URLs\", function () {\r",
+									"    responseBody.forEach(function (item) {\r",
+									"        var imageUrl = item.image.url;\r",
+									"        pm.expect(imageUrl).to.match(/^https?:\\/\\/.*$/);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify property values\", function () {\r",
+									"    responseBody.forEach(function (item) {\r",
+									"        // Example assertions\r",
+									"        pm.expect(item.id).to.be.a(\"number\");\r",
+									"        pm.expect(item.user_id).to.be.a(\"string\").and.not.empty;\r",
+									"        pm.expect(item.image_id).to.be.a(\"string\").and.match(/^\\d+q$/);\r",
+									"        pm.expect(item.sub_id).to.be.a(\"string\").and.match(/^user\\d+$/);\r",
+									"        pm.expect(item.created_at).to.be.a(\"string\").and.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);\r",
+									"        pm.expect(item.image).to.be.an(\"object\").and.not.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"IDs are unique\", function () {\r",
+									"    var ids = responseBody.map(function (item) {\r",
+									"        return item.id;\r",
+									"    });\r",
+									"    pm.expect(ids).to.have.lengthOf(new Set(ids).size);\r",
+									"    console.log(ids)\r",
+									"});\r",
+									"\r",
+									"// Get the expected schema from the global scope\r",
+									"var expectedSchema = JSON.parse(pm.globals.get(\"expectedSchema\"));\r",
+									"\r",
+									"// Validate the response against the expected schema\r",
+									"var validationResult = tv4.validateResult(responseBody, expectedSchema);\r",
+									"\r",
+									"// Check if the response matches the schema\r",
+									"pm.test(\"Response matches the expected schema\", function () {\r",
+									"    pm.expect(validationResult.valid).to.be.true;\r",
+									"    if (!validationResult.valid) {\r",
+									"        console.error(\"Schema validation errors:\", validationResult.errors);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Include the tv4 library\r",
+									"eval(pm.globals.get(\"tv4_library\"));\r",
+									"\r",
+									"// Define the expected schema in the global scope\r",
+									"pm.globals.set(\"expectedSchema\", JSON.stringify({\r",
+									"    type: \"array\",\r",
+									"    items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"            id: { type: \"number\" },\r",
+									"            user_id: { type: \"string\" },\r",
+									"            image_id: { type: \"string\" },\r",
+									"            sub_id: { type: \"string\" },\r",
+									"            created_at: { type: \"string\", format: \"date-time\" },\r",
+									"            image: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                    id: { type: \"string\" },\r",
+									"                    url: { type: \"string\", format: \"uri\" }\r",
+									"                },\r",
+									"                required: [\"id\", \"url\"]\r",
+									"            }\r",
+									"        },\r",
+									"        required: [\"id\", \"user_id\", \"image_id\", \"sub_id\", \"created_at\", \"image\"]\r",
+									"    }\r",
+									"}));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/favourites",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"favourites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get favourites id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches strings\", function () {\r",
+									"    var responseBody = pm.response.text();\r",
+									"    var stringsToInclude = [\"id\", \"user_id\", \"image_id\", \"sub_id\", \"created_at\"];\r",
+									"\r",
+									"    stringsToInclude.forEach(function (searchString) {\r",
+									"        pm.expect(responseBody).to.include(searchString);\r",
+									"    });\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Get the favorite ID from the previous response\r",
+									"var favoriteId = pm.response.json().id;\r",
+									"\r",
+									"// Validate the favorite ID properties\r",
+									"pm.test(\"Fetch Favorite Details\", function () {\r",
+									"    pm.expect(favoriteId).to.be.a(\"number\");\r",
+									"    // Add more assertions as per the properties of the favorite ID\r",
+									"\r",
+									"    // Log the favorite ID\r",
+									"    console.log(\"Favorite ID: \" + favoriteId);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/favourites/{{favId}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"favourites",
+								"{{favId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post favourites",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var randomNumber = Math.floor(Math.random() * 100) + 1;\r",
+									"var imageId = randomNumber + 'q';\r",
+									"var subId = 'user' + randomNumber;\r",
+									"\r",
+									"pm.variables.set('imageId', imageId);\r",
+									"pm.variables.set('subId', subId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create favorite - SUCCESS\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.json().message).to.equal(\"SUCCESS\");\r",
+									"    pm.expect(pm.response.json().id).to.be.a(\"number\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"image_id\": \"{{imageId}}\",\r\n        \"sub_id\": \"{{subId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/favourites",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"favourites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete fav",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create favorite - SUCCESS\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.json().message).to.equal(\"SUCCESS\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/favourites/{{favId}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"favourites",
+								"{{favId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Votes",
+			"item": [
+				{
+					"name": "get votes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Store random id in a variable\", function () {\r",
+									"    // Get the response array\r",
+									"    var responseArray = pm.response.json();\r",
+									"\r",
+									"    // Generate a random index within the array length\r",
+									"    var randomIndex = Math.floor(Math.random() * responseArray.length);\r",
+									"console.log(responseArray.length);\r",
+									"    // Get the item at the random index\r",
+									"    var randomItem = responseArray[randomIndex];\r",
+									"\r",
+									"    // Store the id value in a variable named 'randomId'\r",
+									"    pm.globals.set(\"vote.id\", randomItem.id);\r",
+									"\r",
+									"    // Verify that the variable is set\r",
+									"    pm.expect(pm.globals.get(\"vote.id\")).to.equal(randomItem.id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/votes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"votes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single vote id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/votes/ {{vote.id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"votes",
+								" {{vote.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post votes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"image_id\": \"55\",\r\n\t\"sub_id\": \"ghello\",\r\n    \"value\" : 0\r\n}"
+						},
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/votes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"votes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete votes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "17d94b92-754f-46eb-99a0-65be65b5d18f"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/votes/{{vote.id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"votes",
+								"{{vote.id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.thecatapi.com/v1/categories",
+							"protocol": "https",
+							"host": [
+								"api",
+								"thecatapi",
+								"com"
+							],
+							"path": [
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
